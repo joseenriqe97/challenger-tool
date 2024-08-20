@@ -1,0 +1,5 @@
+{
+    "PORT" : "3000",
+    "secretKey" : "aSuperSecretKey",
+    "url" : "https://echo-serv.tbxnet.com"
+}
