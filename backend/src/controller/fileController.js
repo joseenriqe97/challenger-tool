@@ -2,7 +2,7 @@ const axios = require('axios');
 const { parseCsvToJson } = require('../util/parseStringCSV');
 const { url, secretKey } = require('../../config.json');
 
-axios.defaults.validateStatus = (status) => {
+axios.defaults.validateStatus = () => {
     return true;
 };
 
@@ -18,14 +18,13 @@ const getFiles = async (req, res) => {
             }
         });
 
-
         for (const file of files.data.files) {
             const data = await fetchFileByName(file);
 
             if (data.status && data.status !== 200) {
-                break;
+                continue;
             }
-
+            
             const parsed = JSON.parse(parseCsvToJson(data, 'file'));
 
             const filtered = parsed.filter(line => {
@@ -54,7 +53,6 @@ const fetchFileByName = async (fileName) => {
             Authorization: `Bearer ${secretKey}`
         }
     });
-
     return response.data;
 }
 
