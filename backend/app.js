@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const fileRouter = require('./src/router');
 const { PORT } = require('./config.json');
 const logger = require('morgan');
 
 var app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use('/', fileRouter);
 
